@@ -12,11 +12,11 @@ const server = http.createServer(app);
 const io = socketio(server);
 
 app.use(cors());
-const { newGame, joinGame } = gameSocketEvents(io);
+const { handleNewGame, handleJoinGame } = gameSocketEvents(io);
 
 const onConnection = (socket) => {
-  socket.on("createGame", newGame);
-  socket.on("joinGame", joinGame);
+  socket.on("createGame", handleNewGame);
+  socket.on("joinGame", handleJoinGame);
 
   console.log("Socket joined")
 }
