@@ -1,11 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import {
+  Switch,
+  Route,
+} from "react-router-dom";
+
+import StartScreen from './Screens/StartScreen';
+import GameScreen from './Screens/GameScreen';
 
 function App() {
   return (
-    <div className="App">
-      
-    </div>
+    <Switch>
+      <Route exact path="/">
+        <StartScreen />
+      </Route>
+      <Route path="/game">
+        <GameScreen />
+      </Route>
+     </Switch>
   );
 }
 
