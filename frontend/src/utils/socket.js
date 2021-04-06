@@ -3,7 +3,7 @@ import socketIOClient from "socket.io-client";
 const ENDPOINT = "http://localhost:4000";
 
 /**
- * Class used to handle socket connection for Class Transcribe party room
+ * Class used to handle socket connection for Tank Game
  */
 class socketClass {
   constructor() {

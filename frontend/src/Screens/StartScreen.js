@@ -6,7 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import { socketManager } from '../utils/socket'; 
 import './index.css';
 
-// const socket = socketManager.getSocket();
+const socket = socketManager.getSocket();
 
 function StartScreen() {
   const [code, setCode] = useState("");
@@ -21,12 +21,18 @@ function StartScreen() {
   }
   
   function newGame() {
-    // socket.emit('newGame');
-    history.push('/game');
+    socket.emit('createGame');
+    socket.on('gameCode', (gameCode, player) => {
+      console.log(gameCode)
+      // wait for acknowledgement. Have an error field
+      history.push('/game');
+    })
   }
 
   function joinGame() {
-    // socket.emit('joinGame', code);
+    console.log(typeof code)
+    socket.emit('joinGame', code);
+    // wait for acknowledge event
     history.push('/game');
   }
   
@@ -50,6 +56,7 @@ function StartScreen() {
         <TextField
           value={code}
           onChange={handleChange}
+          autoComplete='off'
           inputProps={{style: {fontSize: 20}}} 
           id='game-code-input'
           placeholder="Enter Game Code"

@@ -10,7 +10,7 @@ const removeUser = (id) => {
   delete clientRooms[id];
 }
 
-const displayAll = () => {
+const getAllRooms = () => {
   return clientRooms;
 }
 
@@ -18,5 +18,5 @@ const displayAll = () => {
 module.exports = {
     addClient,
     removeUser,
-    displayAll,
+    getAllRooms,
 }

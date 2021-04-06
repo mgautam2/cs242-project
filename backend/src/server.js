@@ -4,9 +4,7 @@ const http = require('http')
 const cors = require('cors');
 const gameSocketEvents = require("./events/game.js");
 
-
 const PORT = process.env.PORT || 4000;
-
 const app = express();
 const server = http.createServer(app);
 const io = socketio(server);
@@ -17,8 +15,11 @@ const { handleNewGame, handleJoinGame } = gameSocketEvents(io);
 const onConnection = (socket) => {
   socket.on("createGame", handleNewGame);
   socket.on("joinGame", handleJoinGame);
-
-  console.log("Socket joined")
+  
+  console.log("Socket Connected")
+  socket.on("disconnect", () => {
+    console.log("Socket Disconnected")
+  });
 }
 
 io.on("connection", onConnection);

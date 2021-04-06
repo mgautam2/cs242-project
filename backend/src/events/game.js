@@ -1,48 +1,44 @@
-const rooms = require('../utils/rooms');
+const roomsManager = require('../utils/roomsManager');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = (io) => {
   
-  const handleNewGame = function (payload) {
-    const socket = this; // socket obj
+  const handleNewGame = function () {
+    // socket obj
+    const socket = this; 
     const room = uuidv4();
     
-    rooms.addClient(socket.id, room);
-    socket.emit('gameCode', room);
-
+    roomsManager.addClient(socket.id, room);
     // state[roomName] = initGame();
-    client.join(room);
-    client.number = 1;
-    client.emit('init', 1);
+    socket.join(room);
+    socket.number = 1;
+    // change the way you let the player know he is num 1
+    socket.emit('gameCode', room, 1);
   };
 
   const handleJoinGame = function (code) {
-    const room = io.sockets.adapter.rooms[code];
-
-    let allUsers;
-    if (room) {
-      allUsers = room.sockets;
-    }
-
+    // socket obj
+    const socket = this;
+    const roomUsers = io.sockets.adapter.rooms.get(code);
+  
     let numClients = 0;
-    if (allUsers) {
-      numClients = Object.keys(allUsers).length;
+    if (roomUsers) {
+      numClients = roomUsers.size;
     }
-
+    
     if (numClients === 0) {
-      client.emit('unknownCode');
+      socket.emit('unknownCode');
       return;
     } else if (numClients > 1) {
-      client.emit('tooManyPlayers');
+      socket.emit('tooManyPlayers');
       return;
     }
-
-    rooms.addClient(socket.id, room);
-
-    client.join(room);
-    client.number = 2;
-    client.emit('init', 2);
     
+    roomsManager.addClient(socket.id, code);
+    socket.join(code);
+    socket.number = 2;
+    // emit that person is player1 some how
+    io.to(code).emit('initGame');
     // startGameInterval(roomName);
   };
 
@@ -51,4 +47,3 @@ module.exports = (io) => {
     handleJoinGame
   }
 }
-
