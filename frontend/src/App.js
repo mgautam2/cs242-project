@@ -4,8 +4,8 @@ import {
   Route,
 } from "react-router-dom";
 
-import StartScreen from './Screens/StartScreen';
-import GameScreen from './Screens/GameScreen';
+import StartScreen from './Screen/StartScreen';
+import GameScreen from './Screen/GameScreen';
 
 function App() {
   return (

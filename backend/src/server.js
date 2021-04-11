@@ -2,7 +2,7 @@ const express = require('express')
 const socketio = require('socket.io')
 const http = require('http')
 const cors = require('cors');
-const gameSocketEvents = require("./events/game.js");
+const gameSocketEvents = require("./events/gameSetup.js");
 
 const PORT = process.env.PORT || 4000;
 const app = express();

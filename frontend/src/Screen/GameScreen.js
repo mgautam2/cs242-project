@@ -23,11 +23,10 @@ function GameScreen() {
           Header
         </Typography>
       </div>
-      <div className='game-canvas'>
-        {(start) ? <Canvas /> : <Loading />}
-      </div>
+      <Canvas />
     </div>
   );
 }
 
+// {(start) ? <Canvas /> : <Loading />}
 export default GameScreen;
