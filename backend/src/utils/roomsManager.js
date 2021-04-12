@@ -4,6 +4,10 @@ const addClient = (id, room) => {
     clientRooms[id] = room;
 }
 
+const getClientRoom = (id) => {
+  return clientRooms[id];
+}
+
 const removeUser = (id) => {
   if (!clientRooms[id])
     return;
@@ -17,6 +21,7 @@ const getAllRooms = () => {
 
 module.exports = {
     addClient,
+    getClientRoom,
     removeUser,
     getAllRooms,
 }

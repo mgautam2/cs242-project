@@ -1,7 +1,13 @@
-const FRAME_RATE = 20;
+const FRAME_RATE = 1;
 const GRID_SIZE = 20;
+const CANVAS_HEIGHT = 900;
+const CANVAS_WIDTH = 600;
+const BULLET_DAMAGE = 10;
 
 module.exports = {
   FRAME_RATE,
   GRID_SIZE,
+  CANVAS_WIDTH,
+  CANVAS_HEIGHT,
+  BULLET_DAMAGE
 }

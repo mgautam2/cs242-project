@@ -1,5 +1,7 @@
 const roomsManager = require('../utils/roomsManager');
-const game = require('./gameManager');
+const gameStateManager = require('../utils/gameStateManager');
+const { startGameInterval } = require('./game');
+const game = require('../game/gameState');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = (io) => {
@@ -8,16 +10,20 @@ module.exports = (io) => {
     // socket obj
     const socket = this; 
     const roomId = uuidv4();
+    console.log(roomsManager.getAllRooms());
     
     roomsManager.addClient(socket.id, roomId);
     // state[roomName] = initGame();
     socket.join(roomId);
-    socket.number = 1;
+    socket.number = 'playerOne';
     // change the way you let the player know he is num 1
     socket.emit('gameCode', roomId, 1);
+    
+    const initState =  game.initGame();
+    gameStateManager.createInitState(roomId, initState);
     // Change this later
     // ------
-    game.startGameInterval(io, roomId);
+    // startGameInterval(io, roomId);
     // ------
   };
 
@@ -41,13 +47,53 @@ module.exports = (io) => {
     
     roomsManager.addClient(socket.id, roomId);
     socket.join(roomId);
-    socket.number = 2;
+    socket.number = 'playerTwo';
     // emit that person is player1 some how
     io.to(roomId).emit('initGame');
   };
+  
+  const handleDisconnect = function() {
+    const socket = this;
+    console.log("Socket DisConnected")
+    roomsManager.removeUser(socket.id);
+  }
+  
+  const handleMoveKeyDown = function(dir) {
+    const socket = this; 
+    const roomId = roomsManager.getClientRoom(socket.id);
+  
+    if (!roomId) {
+      return;
+    }
+    movePlayer(dir, socket.number, roomId);
+  } 
+
+  function movePlayer(dir, playerNum, roomId) {
+    const state = gameStateManager.getState(roomId);
+    state[playerNum].move(dir);
+  }
+  
+  const handleFireKeyDown = function () {
+    const socket = this; 
+    const roomId = roomsManager.getClientRoom(socket.id);
+  
+    if (!roomId) {
+      return;
+    }
+    fire(socket.number, roomId);
+  } 
+  
+  function fire(playerNum, roomId) {
+    const state = gameStateManager.getState(roomId);
+    console.log(state)
+  }
+
 
   return {
     handleNewGame,
-    handleJoinGame
+    handleJoinGame,
+    handleMoveKeyDown,
+    handleFireKeyDown,
+    handleDisconnect
   }
 }

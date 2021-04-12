@@ -1,16 +1,20 @@
 const roomsManager = require('../utils/roomsManager');
-// create a gameState Manager like roomsManager
-// import state from there
+const gameStateManager = require('../utils/gameStateManager');
+const game = require('../game/gameState');
 const { FRAME_RATE } = require('../constants');
 
+
 function startGameInterval(io, roomId) {
+  let gameState = gameStateManager.getState(roomId);
   console.log("started Interval Bra");
+  
   const intervalId = setInterval(() => {
     console.log("Sent some message")
     // const winner = gameLoop(state[roomId]);
-    
+    gameState = game.gameLoop(gameState);
     // if (!winner) {
-      emitGameState(io, roomId, "Teri maa ki" /*state[roomId]*/)
+    emitGameState(io, roomId, gameState)
+      
     // } else {
       // emitGameOver(roomId, winner);
       // delete state[roomId];
@@ -19,6 +23,7 @@ function startGameInterval(io, roomId) {
   }, 1000 / FRAME_RATE);
 }
 
+
 function emitGameState(io, roomId, gameState) {
   // Send this event to everyone in the room.
   io.sockets.to(roomId)
@@ -26,11 +31,13 @@ function emitGameState(io, roomId, gameState) {
 }
 
 
-function gameLoop() {
-  
+function gameEndCleanUp (io, roomId, IntervalId) {
+  // game.disconnect() CLEAN UP
 }
 
+
+
+
 module.exports = {
-  startGameInterval, 
-  gameLoop
+  startGameInterval
 }
