@@ -51,6 +51,9 @@ and other rechargable special weapons
 * Frontend can allow users to mute/unmute themselves 
 
 ## Rubrics
+
+https://docs.google.com/spreadsheets/d/1tDEQyurHIfR8tOxFQ0QJQ4a4RqubCLgICbUlOb4BB54/edit?usp=sharing
+
 ### Week 1
 | Category  | Total Score Allocated | Detailed Rubrics                                                            |
 |-----------|:---------:|-------------------------------------------------------------------------------|

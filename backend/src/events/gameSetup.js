@@ -72,7 +72,7 @@ module.exports = (io) => {
     if (!roomId) {
       return;
     }
-    fire(socket.number);
+    fire(socket.number, roomId);
   } 
   
   function fire(playerNum, roomId) {

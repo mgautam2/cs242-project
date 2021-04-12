@@ -32,6 +32,7 @@ function createProjectiles(state, player) {
     gameStateManager.updateState(state);
   }
   else {
+    console.log(state)
     const projectile = new Projectiles(state.playerTwo);
     state.projectiles.push(projectile);
     gameStateManager.updateState(state);

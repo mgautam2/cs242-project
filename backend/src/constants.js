@@ -1,4 +1,4 @@
-const FRAME_RATE = 20;
+const FRAME_RATE = 10;
 const GRID_SIZE = 20;
 const CANVAS_HEIGHT = 900;
 const CANVAS_WIDTH = 600;
