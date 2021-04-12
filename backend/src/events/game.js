@@ -5,16 +5,17 @@ const { FRAME_RATE } = require('../constants');
 
 
 function startGameInterval(io, roomId) {
-  let gameState = gameStateManager.getState(roomId);
+  
   console.log("started Interval Bra");
   
   const intervalId = setInterval(() => {
-    console.log("Sent some message")
     // const winner = gameLoop(state[roomId]);
+    let gameState = gameStateManager.getState(roomId);
     gameState = game.gameLoop(gameState);
+     // console.log(gameState)
     // if (!winner) {
     emitGameState(io, roomId, gameState)
-      
+    // console.log(gameState)
     // } else {
       // emitGameOver(roomId, winner);
       // delete state[roomId];

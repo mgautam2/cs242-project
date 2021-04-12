@@ -8,6 +8,10 @@ class Player {
       y: (constants.CANVAS_HEIGHT - 100) / constants.GRID_SIZE 
     };
     this.health = 100;
+    this.bulletVelo = (number === 1) ? -constants.BULLET_VELO : constants.BULLET_VELO;
+    if (number === 2) {
+      this.pos.y = (40 / constants.GRID_SIZE );
+    }
   }
   
   hit() {
@@ -24,6 +28,19 @@ class Player {
   move(side) {
     this.pos.x += (side === 'right') ? 1 : -1;    
   }  
+  
+  getBulletVelo() {
+    return this.bulletVelo;
+  }
+  
+  getPos() {
+    return this.pos;
+  }
+  
+  getNum() {
+    return this.number;
+  }
 }
+
 
 module.exports = Player; 

@@ -12,7 +12,6 @@ function GameScreen() {
   const [start, setStart] = useState(false);
   
   socket.on('initGame', () => {
-    console.log("Yo")
     setStart(true);
   })
   

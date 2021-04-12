@@ -7,24 +7,16 @@ const { v4: uuidv4 } = require('uuid');
 module.exports = (io) => {
   
   const handleNewGame = function () {
-    // socket obj
     const socket = this; 
     const roomId = uuidv4();
-    console.log(roomsManager.getAllRooms());
     
     roomsManager.addClient(socket.id, roomId);
-    // state[roomName] = initGame();
     socket.join(roomId);
     socket.number = 'playerOne';
-    // change the way you let the player know he is num 1
-    socket.emit('gameCode', roomId, 1);
+    socket.emit('gameCode', roomId);
     
     const initState =  game.initGame();
     gameStateManager.createInitState(roomId, initState);
-    // Change this later
-    // ------
-    // startGameInterval(io, roomId);
-    // ------
   };
 
   const handleJoinGame = function (roomId) {
@@ -37,25 +29,24 @@ module.exports = (io) => {
       numClients = roomUsers.size;
     }
     
-    if (numClients === 0) {
-      socket.emit('unknownroomId');
+    if (numClients === 0 || numClients > 1) {
+      socket.emit('errorJoin');
       return;
-    } else if (numClients > 1) {
-      socket.emit('tooManyPlayers');
-      return;
-    }
+    } 
     
     roomsManager.addClient(socket.id, roomId);
     socket.join(roomId);
     socket.number = 'playerTwo';
-    // emit that person is player1 some how
+    
     io.to(roomId).emit('initGame');
+    // start game session
+    startGameInterval(io, roomId);
   };
   
   const handleDisconnect = function() {
     const socket = this;
-    console.log("Socket DisConnected")
     roomsManager.removeUser(socket.id);
+    console.log("Socket DisConnected");
   }
   
   const handleMoveKeyDown = function(dir) {
@@ -65,12 +56,14 @@ module.exports = (io) => {
     if (!roomId) {
       return;
     }
+    console.log(socket.number)
     movePlayer(dir, socket.number, roomId);
   } 
 
   function movePlayer(dir, playerNum, roomId) {
     const state = gameStateManager.getState(roomId);
     state[playerNum].move(dir);
+    gameStateManager.updateState(roomId, state);
   }
   
   const handleFireKeyDown = function () {
@@ -85,9 +78,8 @@ module.exports = (io) => {
   
   function fire(playerNum, roomId) {
     const state = gameStateManager.getState(roomId);
-    console.log(state)
+    game.createProjectiles(state, playerNum, roomId);
   }
-
 
   return {
     handleNewGame,

@@ -19,6 +19,8 @@ function Canvas() {
   }
   
   useEffect(() => {
+    document.addEventListener('keydown', moveTank);
+    
     const canvasContext = canvasRef.current.getContext('2d');
     setCtx(canvasContext);
     updateState(true);
@@ -28,6 +30,7 @@ function Canvas() {
     socket.on('gameState', handleGameState);
     
     return () => {
+      document.removeEventListener('keydown', moveTank);
       socket.off("gameState", handleGameState);
     };
     
@@ -38,14 +41,24 @@ function Canvas() {
   }, [gameActive])
   
   
+  function moveTank({keyCode}) {
+    // left or right
+    if (keyCode === 37 || keyCode === 39 ) {
+      const cmd = (keyCode === 37) ? 'left' : 'right';   
+      console.log(cmd)
+      socket.emit('moveKeyDown', cmd);
+    }
+    else if (keyCode === 32) {
+      socket.emit('fireKeyDown');
+    }
+  }
+  
   
   function handleGameState(gameState) {
-
     if (!gameActiveRef.current) {
       return;
     }
-    console.log(gameState)
-    // gameState = JSON.parse(gameState);
+    gameState = JSON.parse(gameState);
     requestAnimationFrame(() => draw.paintGame(gameState));
   }
   
