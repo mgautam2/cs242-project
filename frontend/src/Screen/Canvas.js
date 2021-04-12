@@ -1,4 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import canvasDraw from './canvasDrawFunctions';
 import constants from '../constants';
 import { socketManager } from '../utils/socket'; 
@@ -9,6 +11,7 @@ let draw;
 
 function Canvas() {
   const canvasRef = useRef(null);
+  const playerNum = useSelector(state => state.playerNum);
   const [ctx, setCtx] = useState(null);
   const [gameActive, setGameActive] = useState(false);
   const gameActiveRef = useRef(gameActive);
@@ -42,14 +45,12 @@ function Canvas() {
   
   
   function moveTank({keyCode}) {
-    // left or right
     if (keyCode === 37 || keyCode === 39 ) {
       const cmd = (keyCode === 37) ? 'left' : 'right';   
-      console.log(cmd)
-      socket.emit('moveKeyDown', cmd);
+      socket.emit('moveKeyDown', cmd, playerNum);
     }
     else if (keyCode === 32) {
-      socket.emit('fireKeyDown');
+      socket.emit('fireKeyDown', playerNum);
     }
   }
   

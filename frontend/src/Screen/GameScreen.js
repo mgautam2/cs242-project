@@ -22,7 +22,7 @@ function GameScreen() {
           Header
         </Typography>
       </div>
-      <Canvas />
+      {(start) ? <Canvas /> : <Loading />}
     </div>
   );
 }

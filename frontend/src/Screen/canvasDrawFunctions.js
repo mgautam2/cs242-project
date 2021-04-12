@@ -23,7 +23,8 @@ export default (ctx) => ({
   
   paintGame(state) {
     this.init();
-    this.paintPlayer(state.playerOne)
+    this.paintPlayer(state.playerOne);
+    this.paintPlayer(state.playerTwo);
     this.paintBullets(state.projectiles);
   },
     
