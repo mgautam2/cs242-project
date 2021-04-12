@@ -6,19 +6,19 @@ const createInitState = (room, state) => {
 
 const removeState = (room) => {
   if (!states[room])
-    return;
+    return null;
   delete states[room];
 }
 
 const updateState = (room, state) => {
   if (!states[room])
-    return;
+    return null;
   states[room] = state;
 }
 
 const getState = (room) => {
   if (!states[room])
-    return;
+    return null;
   return states[room];
 }
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -12,7 +11,6 @@ import './index.css';
 const socket = socketManager.getSocket();
 
 function StartScreen() {
-  const dispatch = useDispatch();
   const [code, setCode] = useState("");
   const history = useHistory();
   
@@ -26,10 +24,9 @@ function StartScreen() {
   
   function newGame() {
     socket.emit('createGame');
-    socket.on('gameCode', (gameCode, player) => {
+    socket.on('gameCode', (gameCode) => {
       console.log(gameCode)
       // wait for acknowledgement. Have an error field
-      dispatch(setPlayer("playerOne"));
       history.push('/game');
     })
   }
@@ -37,7 +34,6 @@ function StartScreen() {
   function joinGame() {
     console.log(typeof code)
     socket.emit('joinGame', code);
-    dispatch(setPlayer("playerTwo"));
     // wait for acknowledge event
     history.push('/game');
   }

@@ -12,8 +12,11 @@ class Projectiles {
   
   move() {
     this.pos.y += this.velo;    
-  }  
+  }    
   
+  getHeight() {
+    return this.pos.y;
+  }
 }
 
 module.exports = Projectiles; 

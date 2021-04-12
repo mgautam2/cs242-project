@@ -25,7 +25,7 @@ function gameLoop(state) {
   
 }
 
-function createProjectiles(state, player, roomId) {
+function createProjectiles(state, player) {
   if (player === 'playerOne') {
     const projectile = new Projectiles(state.playerOne);
     state.projectiles.push(projectile);
@@ -63,4 +63,5 @@ module.exports = {
   createGameState,
   createProjectiles,
   gameLoop,
+  moveProjectiles
 }

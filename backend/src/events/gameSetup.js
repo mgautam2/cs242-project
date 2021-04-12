@@ -56,7 +56,6 @@ module.exports = (io) => {
     if (!roomId) {
       return;
     }
-    console.log(socket.number)
     movePlayer(dir, socket.number, roomId);
   } 
 
@@ -73,12 +72,12 @@ module.exports = (io) => {
     if (!roomId) {
       return;
     }
-    fire(socket.number, roomId);
+    fire(socket.number);
   } 
   
   function fire(playerNum, roomId) {
     const state = gameStateManager.getState(roomId);
-    game.createProjectiles(state, playerNum, roomId);
+    game.createProjectiles(state, playerNum);
   }
 
   return {
