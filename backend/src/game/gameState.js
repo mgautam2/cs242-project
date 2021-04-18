@@ -30,9 +30,7 @@ function createProjectiles(state, player) {
     const projectile = new Projectiles(state.playerOne);
     state.projectiles.push(projectile);
     gameStateManager.updateState(state);
-  }
-  else {
-    console.log(state)
+  } else {
     const projectile = new Projectiles(state.playerTwo);
     state.projectiles.push(projectile);
     gameStateManager.updateState(state);
@@ -46,6 +44,9 @@ function moveProjectiles(state) {
 }
 
 function deleteProjectiles(state) {
+  if (state.projectiles.length === 0)
+    return;
+    
   const newProjectiles = state.projectiles.filter((projectile) => {
     const y = projectile.pos.y;
     if (y > 0 && y <= constants.CANVAS_HEIGHT/constants.GRID_SIZE)
@@ -53,6 +54,7 @@ function deleteProjectiles(state) {
     else 
       return false;
   });
+  state.projectiles = newProjectiles;
 }
 
 function checkWinner() {

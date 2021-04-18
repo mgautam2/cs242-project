@@ -3,8 +3,10 @@ import Typography from '@material-ui/core/Typography';
 
 import Canvas from './Canvas';
 import Loading from './Loading';
-import { socketManager } from '../utils/socket'; 
+import { socketManager } from '../utils/socket';
+
 import './index.css';
+
 
 const socket = socketManager.getSocket();
 
@@ -27,5 +29,5 @@ function GameScreen() {
   );
 }
 
-// {(start) ? <Canvas /> : <Loading />}
+
 export default GameScreen;

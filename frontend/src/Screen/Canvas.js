@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import canvasDraw from './canvasDrawFunctions';
 import constants from '../constants';
+import sound from '../assets/sounds';
 import { socketManager } from '../utils/socket'; 
 import './index.css';
 

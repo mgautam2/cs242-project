@@ -7,6 +7,7 @@ import TextField from '@material-ui/core/TextField';
 import { socketManager } from '../utils/socket'; 
 import './index.css';
 
+
 const socket = socketManager.getSocket();
 
 function StartScreen() {
@@ -31,7 +32,6 @@ function StartScreen() {
   }
 
   function joinGame() {
-    console.log(typeof code)
     socket.emit('joinGame', code);
     // wait for acknowledge event
     history.push('/game');
