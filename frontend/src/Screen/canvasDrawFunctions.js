@@ -1,10 +1,12 @@
 import constants from '../constants';
-import tankOne from '../assets/images/tankOne.png'
-import tankTwo from '../assets/images/tankTwo.png'
+import tankOneImg from '../asset/images/tankOne.png'
+import tankTwoImg from '../asset/images/tankTwo.png'
+import laserImg from '../asset/images/laser.png'
 
 
 const playerOne = new Image();
 const playerTwo = new Image();
+const laser = new Image();
 const tankLength = constants.TANK_LENGHT;
 const tankWidth = constants.TANK_WIDTH;
 
@@ -12,8 +14,9 @@ export default (ctx) => ({
   
   init() {
     this.clearScreen();
-    playerOne.src = tankOne;
-    playerTwo.src = tankTwo;
+    playerOne.src = tankOneImg;
+    playerTwo.src = tankTwoImg;
+    laser.src = laserImg;
   },
   
   clearScreen() {
@@ -27,21 +30,20 @@ export default (ctx) => ({
   const y = pos.y * constants.GRID_SIZE;
   
   
-  if (player.number === 1)
-    ctx.drawImage(playerOne, x - tankWidth/2 , y, tankWidth, tankLength);
-  else if (player.number === 2)
+  if (player.number === 1) {
+    ctx.drawImage(playerTwo, x , y, tankWidth, tankLength);
+  }
+  else if (player.number === 2) {
     ctx.drawImage(playerTwo, x - tankWidth/2, y, tankWidth, tankLength);
+  }
   
   },
   
   paintBullets(projectiles) {
     projectiles.forEach((projectile) => {
-      const x = projectile.pos.x;
-      const y = projectile.pos.y;
-      ctx.fillStyle = "red";
-      ctx.beginPath();
-      ctx.arc(x * constants.GRID_SIZE, y * constants.GRID_SIZE, 10, 0, Math.PI*2, false);
-      ctx.fill();
+      const x = projectile.pos.x * constants.GRID_SIZE;
+      const y = projectile.pos.y * constants.GRID_SIZE;
+      ctx.drawImage(laser, x - constants.BULLET_WIDTH/2, y, constants.BULLET_WIDTH, constants.BULLET_LENGHT);
     })
   },
   

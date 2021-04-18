@@ -2,8 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 
 import canvasDraw from './canvasDrawFunctions';
 import constants from '../constants';
-import sound from '../assets/sounds';
 import { socketManager } from '../utils/socket'; 
+import sound from '../asset/sounds';
 import './index.css';
 
 const socket = socketManager.getSocket();
@@ -48,6 +48,7 @@ function Canvas() {
       socket.emit('moveKeyDown', cmd);
     }
     else if (keyCode === 32) {
+      sound.explosion.play();
       socket.emit('fireKeyDown');
     }
   }

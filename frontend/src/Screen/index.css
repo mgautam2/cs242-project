@@ -13,9 +13,23 @@
 .game-header {
    background-color: #F2F2F2;
    height: 10%;
-   width: 45%;
+   width: 40%;
+   display: flex;
+   justify-content: space-around;
+   align-items: center; 
 }
 
+.progress-bar {
+  flex: 2;
+  margin-left: 20px;
+  margin-right: 20px;
+  height: 30px;
+}
+
+.timer-div {
+  flex: 1;
+  text-align: center;
+}
 
 
 /* Start Screen */

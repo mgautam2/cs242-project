@@ -1,9 +1,11 @@
 const CANVAS_HEIGHT = 900;
 const CANVAS_WIDTH = 600;
 const GRID_SIZE = 20;
-const BG_COLOUR = 'rgb(40, 40, 40, 0.75)';
+const BG_COLOUR = 'rgb(40, 40, 40, 1)';
 const TANK_LENGHT = 70;
 const TANK_WIDTH = 70; 
+const BULLET_WIDTH = 10;
+const BULLET_LENGHT = 20;
 
 
 export default {
@@ -12,5 +14,7 @@ export default {
   BG_COLOUR,
   GRID_SIZE,
   TANK_LENGHT,
-  TANK_WIDTH
+  TANK_WIDTH,
+  BULLET_WIDTH,
+  BULLET_LENGHT
 }
