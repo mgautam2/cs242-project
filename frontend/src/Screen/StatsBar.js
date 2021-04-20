@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
 import Typography from '@material-ui/core/Typography';
-
 import './index.css';
+
  
 function color(health) {
   let color = '#F70850';
@@ -16,15 +16,11 @@ function color(health) {
   return color;
 }
 
-
-function StatsBar({stat}) {
-  
+function StatsBar({stat, timer}) {
   const { playerOne, playerTwo } = stat;
   const playerOneHealth = (playerOne) ? playerOne.health : 100;
   const playerTwoHealth = (playerTwo) ? playerTwo.health : 100;
-  // later on use props
-
-
+  
   return (
     <>
       <div className='progress-bar'>
@@ -35,7 +31,7 @@ function StatsBar({stat}) {
       </div>
       <div className='timer-div'>
         <Typography variant="h5" gutterBottom>
-          Time Here
+          {timer}
         </Typography>
       </div>
       <div className='progress-bar'>
@@ -48,6 +44,5 @@ function StatsBar({stat}) {
     </>
   );
 }
-
 
 export default StatsBar;

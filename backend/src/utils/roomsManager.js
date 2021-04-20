@@ -18,7 +18,6 @@ const getAllRooms = () => {
   return clientRooms;
 }
 
-
 module.exports = {
     addClient,
     getClientRoom,

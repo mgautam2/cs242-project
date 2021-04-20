@@ -26,10 +26,8 @@ export default (ctx) => ({
   
   paintPlayer(player) {
   const {pos} = player;
-  // console.log(player)
   const x = pos.x * constants.GRID_SIZE;
   const y = pos.y * constants.GRID_SIZE;
-  // console.log({x, y})
   
   if (player.number === 1) {
     ctx.drawImage(playerOne, x - tankWidth/2 , y, tankWidth, tankLength);
@@ -37,7 +35,6 @@ export default (ctx) => ({
   else if (player.number === 2) {
     ctx.drawImage(playerTwo, x - tankWidth/2, y, tankWidth, tankLength);
   }
-  
   },
   
   paintBullets(projectiles) {
@@ -48,11 +45,32 @@ export default (ctx) => ({
     })
   },
   
+  paintCollisions(collisions) {
+    collisions.forEach((collision) => {
+      const x = collision.pos.x * constants.GRID_SIZE;
+      const y = collision.pos.y * constants.GRID_SIZE;
+      const r = collision.radius * 2;
+      ctx.beginPath();
+      ctx.fillStyle = 'red';
+      ctx.arc(x, y, r*1.1, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.fillStyle = 'orange';
+      ctx.arc(x, y, r*.8, 0, 2 * Math.PI);
+      ctx.fill();
+      ctx.beginPath();
+      ctx.fillStyle = 'yellow';
+      ctx.arc(x, y, r*.4, 0, 2 * Math.PI);
+      ctx.fill();
+    })
+  },
+  
   paintGame(state) {
     this.clearScreen();
     this.paintPlayer(state.playerOne);
     this.paintPlayer(state.playerTwo);
     this.paintBullets(state.projectiles);
+    this.paintCollisions(state.collisions);
   },
     
 })

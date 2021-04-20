@@ -1,7 +1,7 @@
 const CANVAS_HEIGHT = 900;
 const CANVAS_WIDTH = 600;
 const GRID_SIZE = 20;
-const BG_COLOUR = 'rgb(40, 40, 40, 1)';
+const BG_COLOUR = 'rgb(40, 40, 40, .95)';
 const TANK_LENGHT = 70;
 const TANK_WIDTH = 70; 
 const BULLET_WIDTH = 10;

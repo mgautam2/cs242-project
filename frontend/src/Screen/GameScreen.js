@@ -14,27 +14,26 @@ const socket = socketManager.getSocket();
 function GameScreen() {
   const [start, setStart] = useState(false);
   const [playerStats, setStats] = useState({});
+  const [time, setTime] = useState(0);
   
-  function getPlayerStats(stats) {
-    setStats(stats)
+  function getPlayerStats(stats, timer) {
+    setStats(stats);
+    setTime(Math.ceil(timer));
   }
   
   socket.on('initGame', () => {
-    // sound.background.play();
+    sound.background.play();
     setStart(true);
   })
-  
-  // pass up properties to the header later on
-  
+
   return (
     <div className='game-screen'>
       <div className='game-header'>
-        <StatsBar stat={playerStats} />
+        <StatsBar stat={playerStats}  timer={time}/>
       </div>
-      {(start) ? <Canvas statFunc={getPlayerStats}/> : <Loading />}
+      {(start) ? <Canvas statFunc={getPlayerStats} /> : <Loading />}
     </div>
   );
 }
-
 
 export default GameScreen;

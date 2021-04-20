@@ -10,6 +10,9 @@ function startGameInterval(io, roomId) {
     
     gameState = game.gameLoop(gameState);
     emitGameState(io, roomId, gameState)
+    if (gameState.winner !== '') {
+      gameEndCleanUp (io, roomId, intervalId);
+    }
     
   }, 1000 / FRAME_RATE);
 }
@@ -20,8 +23,10 @@ function emitGameState(io, roomId, gameState) {
     .emit('gameState', JSON.stringify(gameState));
 }
 
-function gameEndCleanUp (io, roomId, IntervalId) {
-  // game.disconnect() CLEAN UP
+function gameEndCleanUp (io, roomId, intervalId) {
+  gameStateManager.removeState(roomId);
+  clearInterval(intervalId);
+  console.log("Game ended!")
 }
 
 module.exports = {
