@@ -8,6 +8,7 @@ const TANK_LENGHT = 70;
 const TANK_WIDTH = 70; 
 const BULLET_WIDTH = 10;
 const BULLET_LENGHT = 20;
+const RADIUS_REDUC = 1;
 
 module.exports = {
   FRAME_RATE,
@@ -19,5 +20,6 @@ module.exports = {
   TANK_LENGHT,
   TANK_WIDTH,
   BULLET_WIDTH,
-  BULLET_LENGHT
+  BULLET_LENGHT,
+  RADIUS_REDUC
 }

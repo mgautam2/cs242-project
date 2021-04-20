@@ -1,4 +1,5 @@
 const game = require('../src/game/gameState');
+const constants = require('../src/constants');
 
 let gameState;
 
@@ -26,3 +27,11 @@ test("Move Projectile", () => {
   const bulletSpeed = gameState.playerTwo.getBulletVelo();
   expect(projectile.pos.y).toBe(prevHeight + bulletSpeed);
 })
+
+test("Change Timer", () => {
+  const origTime = gameState.time;
+  game.changeClock(gameState);
+  expect(gameState.time).toBe(origTime - 1/constants.FRAME_RATE);
+})
+
+

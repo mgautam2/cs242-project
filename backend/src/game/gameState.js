@@ -44,7 +44,7 @@ function winner(state) {
   }
   else if (state.time <= 0) {
     state.winner = (state.playerTwo.getHealth() > state.playerOne.getHealth()) ?
-                    'PlayerTwo' : 'PlayerOne';
+                    'playerTwo' : 'playerOne';
   }
   gameStateManager.updateState(state);
 }
@@ -132,14 +132,15 @@ function deleteProjectiles(state) {
   state.projectiles = newProjectiles;
 }
 
-function checkWinner() {
-  
-}
 
 module.exports = {
   initGame,
   createGameState,
   createProjectiles,
   gameLoop,
-  moveProjectiles
+  moveProjectiles,
+  changeClock,
+  winner,
+  checkCollisons,
+  animateCollisions
 }

@@ -31,6 +31,10 @@ class Projectiles {
     return this.pos;
   }
   
+  changePos(pos) {
+    this.pos = pos;
+  }
+  
 }
 
 module.exports = Projectiles; 

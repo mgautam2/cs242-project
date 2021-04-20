@@ -10,13 +10,17 @@ class Collision {
   }
   
   reduceRadius() {
-    this.radius = this.radius - 1;    
+    this.radius = this.radius - constants.RADIUS_REDUC;    
   }    
   
   isOver() {
     if (this.radius < 1)
       return true;
     return false;
+  }
+  
+  getRadius() {
+    return this.radius;
   }
 }
 
