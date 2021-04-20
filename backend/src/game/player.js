@@ -18,14 +18,22 @@ class Player {
     this.health -= constants.BULLET_DAMAGE;
   }
   
-  dead() {
+  isDead() {
     if (this.health <= 0)
       return true;
     else 
       return false;
   }
   
+  getHealth() {
+    return this.health;
+  }
+  
   move(side) {
+    if (this.pos.x <= 1  && side === 'left')
+      return;
+    else if (this.pos.x >= constants.CANVAS_WIDTH / (constants.GRID_SIZE) - 1 && side === 'right')
+      return;
     this.pos.x += (side === 'right') ? 1 : -1;    
   }  
   

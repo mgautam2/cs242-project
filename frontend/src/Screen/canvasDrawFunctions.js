@@ -26,12 +26,13 @@ export default (ctx) => ({
   
   paintPlayer(player) {
   const {pos} = player;
+  // console.log(player)
   const x = pos.x * constants.GRID_SIZE;
   const y = pos.y * constants.GRID_SIZE;
-  
+  // console.log({x, y})
   
   if (player.number === 1) {
-    ctx.drawImage(playerTwo, x , y, tankWidth, tankLength);
+    ctx.drawImage(playerOne, x - tankWidth/2 , y, tankWidth, tankLength);
   }
   else if (player.number === 2) {
     ctx.drawImage(playerTwo, x - tankWidth/2, y, tankWidth, tankLength);

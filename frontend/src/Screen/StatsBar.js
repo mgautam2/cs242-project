@@ -17,20 +17,20 @@ function color(health) {
 }
 
 
-function StatsBar(props) {
+function StatsBar({stat}) {
   
-  const playerOne = 50;
-  const playerTwo = 10;
-  
+  const { playerOne, playerTwo } = stat;
+  const playerOneHealth = (playerOne) ? playerOne.health : 100;
+  const playerTwoHealth = (playerTwo) ? playerTwo.health : 100;
   // later on use props
 
 
   return (
     <>
       <div className='progress-bar'>
-        <ProgressBar completed={playerOne}
+        <ProgressBar completed={playerOneHealth}
           isLabelVisible={false}
-          bgColor={color(playerOne)}
+          bgColor={color(playerOneHealth)}
          />
       </div>
       <div className='timer-div'>
@@ -39,9 +39,9 @@ function StatsBar(props) {
         </Typography>
       </div>
       <div className='progress-bar'>
-        <ProgressBar completed={playerTwo} 
+        <ProgressBar completed={100 - playerTwoHealth} 
           bgColor='#e0e0de'
-          baseBgColor={color(100 - playerTwo)}
+          baseBgColor={color(playerTwoHealth)}
           isLabelVisible={false}
         />
       </div>

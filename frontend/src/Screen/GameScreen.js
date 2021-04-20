@@ -13,9 +13,14 @@ const socket = socketManager.getSocket();
 
 function GameScreen() {
   const [start, setStart] = useState(false);
+  const [playerStats, setStats] = useState({});
+  
+  function getPlayerStats(stats) {
+    setStats(stats)
+  }
   
   socket.on('initGame', () => {
-    sound.background.play();
+    // sound.background.play();
     setStart(true);
   })
   
@@ -24,9 +29,9 @@ function GameScreen() {
   return (
     <div className='game-screen'>
       <div className='game-header'>
-        <StatsBar />
+        <StatsBar stat={playerStats} />
       </div>
-      {(start) ? <Canvas /> : <Loading />}
+      {(start) ? <Canvas statFunc={getPlayerStats}/> : <Loading />}
     </div>
   );
 }

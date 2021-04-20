@@ -10,6 +10,7 @@ function startGameInterval(io, roomId) {
     
     gameState = game.gameLoop(gameState);
     emitGameState(io, roomId, gameState)
+    
   }, 1000 / FRAME_RATE);
 }
 

@@ -9,7 +9,7 @@ import './index.css';
 const socket = socketManager.getSocket();
 let draw;
 
-function Canvas() {
+function Canvas({statFunc}) {
   const canvasRef = useRef(null);
   const [ctx, setCtx] = useState(null);
   const [gameActive, setGameActive] = useState(false);
@@ -19,7 +19,7 @@ function Canvas() {
     gameActiveRef.current = newState;
     setGameActive(newState);
   }
-  
+
   useEffect(() => {
     document.addEventListener('keydown', moveTank);
     
@@ -48,7 +48,7 @@ function Canvas() {
       socket.emit('moveKeyDown', cmd);
     }
     else if (keyCode === 32) {
-      sound.explosion.play();
+      // sound.explosion.play();
       socket.emit('fireKeyDown');
     }
   }
@@ -59,6 +59,8 @@ function Canvas() {
       return;
     }
     gameState = JSON.parse(gameState);
+    const { playerOne, playerTwo } = gameState;
+    statFunc({ playerOne, playerTwo })
     requestAnimationFrame(() => draw.paintGame(gameState));
   }
   

@@ -2,6 +2,10 @@ const constants = require('../constants');
 const Projectiles = require('./Projectiles');
 const gameStateManager = require('../utils/gameStateManager');
 const player = require('./player');
+const Collision = require('./collision');
+
+
+const collisionDist = Math.pow((constants.TANK_WIDTH + constants.BULLET_WIDTH) /  constants.GRID_SIZE, 2);
 
 function initGame() {
   const state = createGameState()
@@ -14,16 +18,87 @@ function createGameState() {
     playerOne : new player(1),
     playerTwo : new player(2),
     gridsize: constants.GRID_SIZE,
-    projectiles: []
+    projectiles: [],
+    winner: '',
+    collisions: [],
+    time: 60
   };
 }
 
 function gameLoop(state) {
   deleteProjectiles(state);
   moveProjectiles(state);
+  checkCollisons(state);
+  animateCollisions(state);
+  changeClock(state);
+  winner(state);
   return state
-  
 }
+
+function winner(state) {
+  if (state.playerOne.isDead()) {
+    state.winner = 'playerTwo';
+  }
+  else if (state.playerTwo.isDead()) {
+    state.winner = 'playerOne';
+  }
+  else if (state.time <= 0) {
+    state.winner = (state.playerTwo.getHealth() > state.playerOne.getHealth()) ?
+                    'PlayerTwo' : 'PlayerOne';
+  }
+  gameStateManager.updateState(state);
+}
+
+function changeClock(state) {
+  state.time -= 1 /  constants.FRAME_RATE;
+  gameStateManager.updateState(state);
+}
+
+function animateCollisions(state) {
+  state.collisions.forEach((collision) => {
+    collision.reduceRadius();
+  });
+  // filter finished collisions
+  const collisions = state.collisions.filter((collision) => {
+    if (collision.isOver())
+      return false;
+    return true;
+  });
+  state.collisions = collisions;
+  gameStateManager.updateState(state);
+}
+
+
+function checkCollisons(state) {
+  // check for collsions
+  const playerOnePos = state.playerOne.getPos();
+  const playerTwoPos = state.playerTwo.getPos();
+  
+  const projectiles = state.projectiles.filter((projectile) => {
+
+    if (projectile.getPlayer() === 1) { // of player one
+      const isCollision = (projectile.getSqDistance(playerTwoPos) < collisionDist)
+      if (isCollision) {
+        state.collisions.push(new Collision(projectile.getPos()));
+        state.playerTwo.hit();
+        return false;
+      }
+    }
+    else if (projectile.getPlayer() === 2) { // of player Two
+      const isCollision = (projectile.getSqDistance(playerOnePos) < collisionDist)
+      if (isCollision) {
+        state.collisions.push(new Collision(projectile.getPos()));
+        state.playerOne.hit();
+        return false;
+      }
+    }
+    return true;
+  });
+  state.projectiles = projectiles;
+  gameStateManager.updateState(state);
+}
+
+
 
 function createProjectiles(state, player) {
   if (player === 'playerOne') {

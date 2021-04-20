@@ -17,6 +17,20 @@ class Projectiles {
   getHeight() {
     return this.pos.y;
   }
+  
+  getSqDistance(obj) {
+    const dist = Math.pow(this.pos.x - obj.x, 2) + Math.pow(this.pos.y - obj.y, 2);
+    return dist;
+  }
+  
+  getPlayer() {
+    return this.player;
+  }
+  
+  getPos() {
+    return this.pos;
+  }
+  
 }
 
 module.exports = Projectiles; 
