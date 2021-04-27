@@ -28,8 +28,8 @@ function GameScreen() {
   const someonevideo = useRef(null);
   const player = useLocation().state;
   const [open, setOpen] = useState(false);
-  const [toggleMic, setMicToggle] = useState(true);
-  const [toggleSpeaker, setToggleSpeaker] = useState(true);
+  const [toggleMic, setMicToggle] = useState(false);
+  const [toggleSpeaker, setToggleSpeaker] = useState(false);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -135,10 +135,10 @@ function GameScreen() {
         <ChatBox openStatus={open} close={handleDrawerClose} />
         <div className='audio-setting'>
           { (toggleMic) ? <MicIcon style={{fontSize: '50px'}} /> 
-            : <MicOffIcon className='audio-ctrl' /> 
+            : <MicOffIcon style={{fontSize: '50px', paddingLeft: 20}} /> 
           }
           { (toggleMic) ? <VolumeUpIcon style={{fontSize: '50px', paddingLeft: 20}} />
-            : <VolumeOffIcon className='audio-ctrl' /> 
+            : <VolumeOffIcon style={{fontSize: '50px', paddingLeft: 20}} /> 
           }
         </div>
       </div>
