@@ -1,5 +1,5 @@
-const CANVAS_HEIGHT = 900;
-const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 700;
+const CANVAS_WIDTH = 550;
 const GRID_SIZE = 20;
 const BG_COLOUR = 'rgb(40, 40, 40, .95)';
 const TANK_LENGHT = 70;

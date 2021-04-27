@@ -28,10 +28,39 @@ test("Move Projectile", () => {
   expect(projectile.pos.y).toBe(prevHeight + bulletSpeed);
 })
 
+test("Get Projectiles Distance", () => {
+  const playerOnePos = gameState.playerOne.getPos();
+  const dist = gameState.projectiles[0].getSqDistance(playerOnePos);
+  expect(dist).toBe(1225);
+})
+
+test("Delete Projectiles", () => {
+  game.createProjectiles(gameState, 'playerOne')
+  expect(gameState.projectiles.length).toBe(2);
+  
+  gameState.projectiles[1].changePos({x: 10, y:100});
+  game.deleteProjectiles(gameState);
+  expect(gameState.projectiles.length).toBe(1);
+})
+
 test("Change Timer", () => {
   const origTime = gameState.time;
   game.changeClock(gameState);
   expect(gameState.time).toBe(origTime - 1/constants.FRAME_RATE);
+})
+
+test("Player hit", () => {
+  const { playerOne } = gameState;
+  playerOne.hit();
+  expect(playerOne.getHealth()).toBe(90);
+  expect(playerOne.isDead()).toBe(false);
+})
+
+test("Player Dead", () => {
+  const { playerOne } = gameState;
+  for (let t = 1; t < 10; t++) 
+    playerOne.hit();
+  expect(playerOne.isDead()).toBe(true);
 })
 
 

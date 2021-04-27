@@ -32,3 +32,10 @@ test("Change Explosion Radius", () => {
   let newRadius = gameState.collisions[0].getRadius();
   expect(newRadius).toBe(origRadius - constants.RADIUS_REDUC);
 })
+
+test("check collision isOver", () => {
+  const c1 = gameState.collisions[0];
+  for (let t = 1; t < 10; t++) 
+    game.animateCollisions(gameState);
+  expect(c1.isOver()).toBe(true);
+})

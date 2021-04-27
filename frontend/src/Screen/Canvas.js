@@ -5,19 +5,25 @@ import canvasDraw from './canvasDrawFunctions';
 import constants from '../constants';
 import { socketManager } from '../utils/socket'; 
 import sound from '../asset/sounds';
-import './index.css';
 
 const socket = socketManager.getSocket();
 let draw;
 const customStyles = {
-  content : {
-    top: '50%',
+  overlay: {
+    backgroundColor: 'rgba(0, 0, 0, .95)', // Background color for the overlay
+  },
+  content: {
+    top: '40%',
     left: '50%',
     right: 'auto',
     bottom: 'auto',
     marginRight: '-50%',
-    transform: 'translate(-50%, -50%)'
-  }
+    transform: 'translate(-50%, -50%)',
+    background: 'transparent', // Set the background of the modal content to transparent
+    border: 'none', // Remove any borders
+    padding: '0', // Remove padding
+    transition: ' 2s ease-in-out'
+  },
 };
 
 function Canvas({statFunc}) {
@@ -41,6 +47,7 @@ function Canvas({statFunc}) {
     document.addEventListener('keydown', moveTank);
     
     const canvasContext = canvasRef.current.getContext('2d');
+    canvasContext.fillStyle = "#283b92";
     setCtx(canvasContext);
     updateState(true);
     draw = canvasDraw(canvasContext);
@@ -59,7 +66,10 @@ function Canvas({statFunc}) {
   }, [gameActive])
   
   
-  function moveTank({keyCode}) {
+  function moveTank(event) {
+    const {keyCode} = event;
+    event.preventDefault();
+
     if (keyCode === 37 || keyCode === 39 ) {
       const cmd = (keyCode === 37) ? 'left' : 'right';   
       socket.emit('moveKeyDown', cmd);
@@ -73,7 +83,10 @@ function Canvas({statFunc}) {
   function checkForWinner(gameState) {
     if (gameState.winner !== '') {
       setIsOpen(true);
-      setWinner(gameState.winner);
+      if(gameState.winner === 'playerOne')
+        setWinner('Blue');
+      else 
+        setWinner('Red');
     }
   }
   
@@ -89,7 +102,7 @@ function Canvas({statFunc}) {
   }
   
   return (
-    <>
+    <div className="Canvas">
       <canvas
         height={constants.CANVAS_HEIGHT}
         width={constants.CANVAS_WIDTH}
@@ -98,12 +111,10 @@ function Canvas({statFunc}) {
       <Modal
             isOpen={modalIsOpen}
             style={customStyles}
-            contentLabel="Example Modal"
       >
-        The Winner is {' '} 
-        {winner} !
+        <p className="winner">GAME OVER <br/><b> Winner is {winner}!</b></p>
       </Modal>
-    </>
+    </div>
   );
 }
 

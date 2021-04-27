@@ -21,7 +21,7 @@ function createGameState() {
     projectiles: [],
     winner: '',
     collisions: [],
-    time: 60
+    time: 900
   };
 }
 
@@ -30,7 +30,7 @@ function gameLoop(state) {
   moveProjectiles(state);
   checkCollisons(state);
   animateCollisions(state);
-  // changeClock(state);
+  changeClock(state);
   winner(state);
   return state
 }
@@ -77,7 +77,7 @@ function checkCollisons(state) {
   const projectiles = state.projectiles.filter((projectile) => {
 
     if (projectile.getPlayer() === 1) { // of player one
-      const isCollision = (projectile.getSqDistance(playerTwoPos) < collisionDist)
+      const isCollision = (projectile.getSqDistance(playerTwoPos)  < collisionDist)
       if (isCollision) {
         state.collisions.push(new Collision(projectile.getPos()));
         state.playerTwo.hit();
@@ -85,7 +85,7 @@ function checkCollisons(state) {
       }
     }
     else if (projectile.getPlayer() === 2) { // of player Two
-      const isCollision = (projectile.getSqDistance(playerOnePos) < collisionDist)
+      const isCollision = ((projectile.getSqDistance(playerOnePos ) < collisionDist))
       if (isCollision) {
         state.collisions.push(new Collision(projectile.getPos()));
         state.playerOne.hit();
@@ -142,5 +142,6 @@ module.exports = {
   changeClock,
   winner,
   checkCollisons,
-  animateCollisions
+  animateCollisions,
+  deleteProjectiles
 }

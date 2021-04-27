@@ -12,7 +12,16 @@ cd sp21-cs242-project.git
 
 FrontEnd
 
+```
+	npm i
+	npm start
+```
+
 BackEnd
+```
+	npm i
+	npm start
+```
 
 #Tests
 

@@ -10,11 +10,11 @@ import Peer from "simple-peer";
 
 import Canvas from './Canvas';
 import Loading from './Loading';
-import StatsBar from './StatsBar';
+import HealthBar from './HealthBar';
 import ChatBox from './ChatBox';
 import { socketManager } from '../utils/socket';
-import sound from '../asset/sounds';
-import './index.css';
+
+import './index.scss';
 
 
 const socket = socketManager.getSocket();
@@ -119,27 +119,22 @@ function GameScreen() {
   }
   
   socket.on('initGame', () => {
-    // sound.background.play();
     setStart(true);
   })
 
   return (
     <>
       <div className='game-screen'>
-        <MenuIcon id='open-drawer' onClick={handleDrawerOpen}/>
+      <MenuIcon id='open-drawer' onClick={handleDrawerOpen} />
         <div className='game-header'>
-          <StatsBar stat={playerStats}  timer={time}/>
+          <HealthBar stat={playerStats} timer={time} />
         </div>
-        <video ref={someonevideo} width="00" height="00" controls/>
-        {(start) ? <Canvas statFunc={getPlayerStats} /> : <Loading />}
+        <video ref={someonevideo} width="00" height="00" controls />
+        {start ? <Canvas statFunc={getPlayerStats} /> : <Loading />}
         <ChatBox openStatus={open} close={handleDrawerClose} />
         <div className='audio-setting'>
-          { (toggleMic) ? <MicIcon style={{fontSize: '50px'}} /> 
-            : <MicOffIcon style={{fontSize: '50px', paddingLeft: 20}} /> 
-          }
-          { (toggleMic) ? <VolumeUpIcon style={{fontSize: '50px', paddingLeft: 20}} />
-            : <VolumeOffIcon style={{fontSize: '50px', paddingLeft: 20}} /> 
-          }
+          {toggleMic ? <MicIcon style={{ fontSize: '50px' }} /> : <MicOffIcon style={{ fontSize: '50px', paddingLeft: 20 }} />}
+          {toggleMic ? <VolumeUpIcon style={{ fontSize: '50px', paddingLeft: 20 }} /> : <VolumeOffIcon style={{ fontSize: '50px', paddingLeft: 20 }} />}
         </div>
       </div>
     </>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import ProgressBar from "@ramonak/react-progress-bar";
 import Typography from '@material-ui/core/Typography';
-import './index.css';
+
 
  
 function color(health) {

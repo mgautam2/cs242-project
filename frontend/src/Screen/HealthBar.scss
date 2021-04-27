@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=VT323');
+
+$red: #f42126;
+$yellow: #fff950;
+$blue: #054baa;
+$white: #fff;
+$black: #333;
+$magenta: #ec1d56;
+$bar-height: 1.7vw;
+$max-bar-height: 4.125rem;
+$font-size: 4.2vw;
+$wide-font-size: 150px; 
+$border-color: rgba(123, 123, 123, 100);
+
+
+
+
+.l-split__item {
+  float: left;
+  width: 38%;
+}
+
+.l-split__item--small {
+  width: 13%;
+  text-align: center;
+}
+
+.l-centered {
+  margin: 0 auto;
+}
+
+.health-container {
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-around;
+  padding: 5px;
+  
+}
+
+
+.healthbar {
+  background-color: $white;
+  border-radius: 5px;
+  box-shadow: 
+    0 0 0 1px hsl(0, 0%, 80%),
+    0 0 0 2px hsl(0, 0%, 90%),
+    0 0 0 3px hsl(0, 0%, 100%);
+  height: $bar-height;
+  max-height: $max-bar-height;
+}
+
+.healthbar__meter {
+  background-color: $magenta;
+  border-radius: 5px;
+  height: $bar-height;
+  max-height: $max-bar-height;
+  transition: width 0.2s ease-in-out;
+}
+
+.healthbar__meter--player-one {
+  float: left;
+}
+
+.healthbar__meter--player-two { 
+  float: right;
+}
+
+.timer,
+.ko {
+  color: $yellow;
+  display: inline-block;
+  font-weight: bold;
+  font-size: $font-size;
+  line-height: .5;
+  text-align: center;
+  text-shadow: .4vw .3vw 0 $magenta;
+  width: 80%;
+  color: #fff;
+  font-family: 'VT323';
+ 
+}
+
+.timer {
+  color: $white;
+  clear: both;
+  display: block;
+  padding-top: 1.4vw;
+}

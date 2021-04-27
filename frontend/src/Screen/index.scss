@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css?family=VT323');
+
+/* General Styles */
+
+body {
+  font-family: 'VT323';
+}
+
+/* Game Screen */
+
+.game-screen {
+  background: radial-gradient(circle at center,#501f53, #ac3ba1);
+  height: 98vh;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.game-header {
+  height: 10%;
+  width: 70%; 
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 1vh;
+}
+
+.progress-bar {
+  flex: 2;
+  margin: 0 20px; 
+  height: 30px;
+}
+
+.timer-div {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.audio-setting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+
+#open-drawer {
+  font-family: 'VT323';
+  font-size: 50px;
+  position: absolute;
+  top: 40px;
+  right: 70px;
+  cursor: pointer;
+}
+
+/* Chat Box */
+
+.messages-container {
+  flex: 1;
+  min-height: 100px;
+  max-height: 70%;
+  overflow: auto;
+  border: 1px solid black;
+  border-radius: 7px 7px 0 0;
+}
+
+.messages-list {
+  list-style-type: none;
+  padding: 0;
+}
+
+.new-message-input-field {
+  height: 200px;
+  max-height: 50%;
+  font-size: 20px;
+  font-family: 'VT323';
+  padding: 8px 12px;
+  resize: none;
+}
+
+.message-item {
+  width: 55%;
+  margin: 8px;
+  padding: 12px 8px;
+  word-break: break-word;
+  border-radius: 4px;
+  color: white;
+}
+
+.my-message {
+  background-color: #0084ff;
+  margin-left: auto;
+}
+
+.received-message {
+  background-color: #3f4042;
+  margin-right: auto;
+}
+
+.send-message-button {
+  font-family: 'VT323';
+  font-size: 28px;
+  font-weight: 600;
+  color: white;
+  background: #31a24c;
+  padding: 24px 12px;
+  border: none;
+}
+
+.messages-container,
+.new-message-input-field,
+.send-message-button {
+  border-color: #9a9a9a;
+}
+
+/* Start Screen */
+
+.start-screen {
+  background: radial-gradient(circle at center,#501f53, #ac3ba1);
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.start-main-div {
+  font-family: "VT323";
+  background-color: #c6114d;
+  height: 63%;
+  width: 35%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: -4vh;
+  border: 2px solid transparent; 
+  border-radius: 20px;
+}
+
+.start-main-div > .MuiButton-root {
+  margin-top: 20px;
+  margin-bottom: 15px;
+  font-size: 18px;
+}
+
+/* Loading Screen */
+
+.loading-screen {
+  background-color: #282424;
+  height: 830px;
+  width: 570px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 20px;
+}
+
+.loading-component {
+  margin-top: -70px;
+  margin-bottom: 70px;
+}
+
+/* Animation */
+
+@mixin anim($name, $dur, $iterate) {
+  animation-name: $name;
+  animation-duration: $dur;
+  animation-iteration-count: $iterate;
+}
+
+.winner {
+  font-size: 5em;
+  text-align: center;
+  @include anim(example, 1s, infinite);
+}
+
+@keyframes example {
+  0% { color: lime; text-shadow: 0 0 20px green; }
+  25% { color: green; text-shadow: 2px 2px 2px lime; transform: translate(-2px, 1px); }
+  40% { color: lime; text-shadow: none; transform: translate(0, 0); }
+  50% { color: green; text-shadow: 5px 5px 2px blue, -5px -5px 2px red; transform: translate(0px, 5px); }
+  70% { color: lime; text-shadow: none; transform: translate(0, 0); }
+  80% { color: lime; text-shadow: 0 0 20px green; transform: translate(-2px, 1px); }
+  100% { color: lime; text-shadow: none; }
+}
+
+/* Additional Styles */
+
+.Canvas {
+  margin-top: 1.5vh;
+  box-shadow: 0 0 20px #ec1d56;
+  border-radius: 25px;
+}
