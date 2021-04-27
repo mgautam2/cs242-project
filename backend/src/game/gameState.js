@@ -30,7 +30,7 @@ function gameLoop(state) {
   moveProjectiles(state);
   checkCollisons(state);
   animateCollisions(state);
-  changeClock(state);
+  // changeClock(state);
   winner(state);
   return state
 }

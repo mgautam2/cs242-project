@@ -5,15 +5,13 @@ import { makeStyles } from '@material-ui/core/styles';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
 
 import './index.css';
 import { socketManager } from '../utils/socket';
 
 
 const socket = socketManager.getSocket();
-const drawerWidth = 400;
+const drawerWidth = 450;
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
@@ -50,7 +48,10 @@ function ChatBox({openStatus, close}) {
   
   useEffect(() => {
     socket.on("recieveMsg", payload => {
-      console.log(payload)
+      console.log("got message")
+      let newMsgs = messages;
+      newMsgs.push(payload)
+      setMessages(newMsgs);
     })
   }, []);
   
@@ -73,11 +74,11 @@ function ChatBox({openStatus, close}) {
       <Divider />
       <div className="messages-container">
         <ol className="messages-list">
-          {messages.map((message, i) => (
+          { messages.map((message, i) => (
             <li
               key={i}
               className={`message-item ${
-                message.ownedByCurrentUser ? "my-message" : "received-message"
+                message.senderId === socket.id ? "my-message" : "received-message"
               }`}
             >
               {message.body}
@@ -85,17 +86,20 @@ function ChatBox({openStatus, close}) {
           ))}
         </ol>
       </div>
-      <TextField
+      <textarea
         value={msg}
         onChange={handleNewMessageChange}
         placeholder="Write message..."
         className="new-message-input-field"
       />
-      <Button onClick={handleSendMessage} className="send-message-button">
+      <button onClick={handleSendMessage} className="send-message-button">
         Send
-      </Button>
+      </button>
     </Drawer>
   );
 }
+
+
+
 
 export default ChatBox;
