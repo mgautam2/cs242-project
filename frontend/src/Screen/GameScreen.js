@@ -3,6 +3,9 @@ import { useHistory, useLocation } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import MenuIcon from '@material-ui/icons/Menu';
 import MicIcon from '@material-ui/icons/Mic';
+import MicOffIcon from '@material-ui/icons/MicOff';
+import VolumeUpIcon from '@material-ui/icons/VolumeUp';
+import VolumeOffIcon from '@material-ui/icons/VolumeOff';
 import Peer from "simple-peer";
 
 import Canvas from './Canvas';
@@ -24,7 +27,9 @@ function GameScreen() {
   const videoEl = useRef(null);
   const someonevideo = useRef(null);
   const player = useLocation().state;
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
+  const [toggleMic, setMicToggle] = useState(true);
+  const [toggleSpeaker, setToggleSpeaker] = useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -125,10 +130,17 @@ function GameScreen() {
         <div className='game-header'>
           <StatsBar stat={playerStats}  timer={time}/>
         </div>
-        <MicIcon /> 
         <video ref={someonevideo} width="00" height="00" controls/>
         {(start) ? <Canvas statFunc={getPlayerStats} /> : <Loading />}
         <ChatBox openStatus={open} close={handleDrawerClose} />
+        <div className='audio-setting'>
+          { (toggleMic) ? <MicIcon style={{fontSize: '50px'}} /> 
+            : <MicOffIcon className='audio-ctrl' /> 
+          }
+          { (toggleMic) ? <VolumeUpIcon style={{fontSize: '50px', paddingLeft: 20}} />
+            : <VolumeOffIcon className='audio-ctrl' /> 
+          }
+        </div>
       </div>
     </>
   );
