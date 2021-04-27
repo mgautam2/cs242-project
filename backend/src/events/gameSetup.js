@@ -79,12 +79,44 @@ module.exports = (io) => {
     const state = gameStateManager.getState(roomId);
     game.createProjectiles(state, playerNum);
   }
+  
+  function handleSendSignal(payload) {
+    const socket = this;
+    let roomId = roomsManager.getClientRoom(payload.callerID);
+    socket.broadcast.to(roomId).emit('getSignal', payload);
+    console.log('sent signal')
+  }
+  
+  function handleReturningSignal(payload) {
+    const socket = this;
+    const { signal, callerID } = payload;
+    socket.to(callerID).emit('getReturningSignal', {signal});
+    console.log("returning signal sent")
+  }
+  
+  function handleReadyPeer(payload) {
+    const socket = this;
+    let roomId = roomsManager.getClientRoom(socket.id);
+    socket.broadcast.to(roomId).emit('setStreamP2');
+  }
 
   return {
     handleNewGame,
     handleJoinGame,
     handleMoveKeyDown,
     handleFireKeyDown,
-    handleDisconnect
+    handleDisconnect,
+    handleSendSignal,
+    handleReturningSignal,
+    handleReadyPeer
   }
 }
+
+
+// socket.on("sending signal", payload => {
+//       io.to(payload.userToSignal).emit('user joined', { signal: payload.signal, callerID: payload.callerID });
+//   });
+// 
+//   socket.on("returning signal", payload => {
+//       io.to(payload.callerID).emit('receiving returned signal', { signal: payload.signal, id: socket.id });
+//   })

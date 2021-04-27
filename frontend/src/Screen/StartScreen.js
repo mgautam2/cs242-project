@@ -27,14 +27,20 @@ function StartScreen() {
     socket.on('gameCode', (gameCode) => {
       console.log(gameCode)
       // wait for acknowledgement. Have an error field
-      history.push('/game');
+      history.push({
+        pathname: '/game',
+        state: 'playerOne'
+      });
     })
   }
 
   function joinGame() {
     socket.emit('joinGame', code);
     // wait for acknowledge event
-    history.push('/game');
+    history.push({
+      pathname: '/game',
+      state: 'playerTwo'
+    });
   }
   
   return (

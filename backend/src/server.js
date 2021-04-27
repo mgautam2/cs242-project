@@ -12,7 +12,10 @@ const { handleNewGame,
    handleJoinGame,
    handleMoveKeyDown,
    handleFireKeyDown,
-   handleDisconnect 
+   handleDisconnect,
+   handleSendSignal,
+   handleReturningSignal,
+   handleReadyPeer
  } = gameSetupEvents(io);
 
 app.use(cors());
@@ -22,6 +25,9 @@ const onConnection = (socket) => {
   socket.on("joinGame", handleJoinGame);
   socket.on("moveKeyDown", handleMoveKeyDown);
   socket.on("fireKeyDown", handleFireKeyDown);
+  socket.on("sendingSignal", handleSendSignal);
+  socket.on("returningSignal", handleReturningSignal);
+  socket.on("readyPeer", handleReadyPeer);
   
   console.log("Socket Connected")
   socket.on("disconnect", handleDisconnect);
