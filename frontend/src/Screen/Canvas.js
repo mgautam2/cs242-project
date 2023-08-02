@@ -68,7 +68,7 @@ function Canvas({statFunc}) {
   
   function moveTank(event) {
     const {keyCode} = event;
-    event.preventDefault();
+    
 
     if (keyCode === 37 || keyCode === 39 ) {
       const cmd = (keyCode === 37) ? 'left' : 'right';   
