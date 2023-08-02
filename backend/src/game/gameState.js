@@ -21,7 +21,7 @@ function createGameState() {
     projectiles: [],
     winner: '',
     collisions: [],
-    time: 900
+    time: 60
   };
 }
 
